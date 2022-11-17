@@ -1,25 +1,27 @@
-import logo from './logo.svg';
+import HeaderSection from './components/header-section/HeaderSection';
+import MainSection from './components/main-section/MainSection';
+import Footer from './components/footer/Footer';
+import { useEffect } from 'react';
 import './App.css';
 
+
+
+
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	// useEffect(() => {
+	// 	fetch('https://newsapi.org/v2/top-headlines?country=jp&category=technology&apiKey=0d128bf4661a476f88c003d0589b245a')
+	// 		.then((response) => response.json())
+	// 		.then((data) => data.articles.map(news => console.log(news.source)))
+	  
+	// }, [])
+	
+	return (
+		<div className="App">
+			<HeaderSection />
+			<MainSection />
+			<Footer />
+		</div>
+	);
 }
 
 export default App;
