@@ -2,11 +2,13 @@ import React from 'react';
 import MenuSection from '../menu-section/MenuSection';
 import NewsFilter from '../header-filter/NewsFilter';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const Header = styled.header`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+    padding: 10px 0;
 `;
 
 const Title = styled.div`
@@ -14,6 +16,10 @@ const Title = styled.div`
     font-weight: 700;
     display: flex;
     align-items: center;
+    & a {
+        text-decoration: none;
+        color: #000;
+    }
 `;
 
 const Span = styled.span`
@@ -26,16 +32,18 @@ const Span = styled.span`
 
 
 
-const HeaderSection = () => {
+const HeaderSection = ({setCategory}) => {
     return (
         <>
             <Header>
                 <Title>
-                    <Span>Some</Span>News
+                    <Link to="/main">
+                        <Span>Some</Span>News
+                    </Link>
                 </Title>
                 <MenuSection />
             </Header>
-            <NewsFilter></NewsFilter>
+            <NewsFilter setCategory={setCategory}/>
         </>
     );
 };

@@ -1,7 +1,7 @@
 import HeaderSection from './components/header-section/HeaderSection';
 import MainPage from './components/pages/MainPage';
 import Footer from './components/footer/Footer';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 
 import {BrowserRouter, BrowserRouter as Router, Route, Routes} from 'react-router-dom';
@@ -17,18 +17,17 @@ function App() {
 	  
 	// }, [])
 
-	
+	const [category, setCategory] = useState(null);
 
-	
 	return (
 		<div className="App">
-			<HeaderSection />
-			<BrowserRouter>
+			<BrowserRouter>			
+				<HeaderSection setCategory={setCategory}/>			
 				<Routes>
-					<Route path="/" element={<MainPage />} />
+					<Route path="/main" element={<MainPage />} />
 					<Route 
-						path="/category" 
-						element={<CategoryPage category='Entertainment' />}/>
+						path=":category" 
+						element={<CategoryPage category={category} />}/>
 				</Routes>
 			</BrowserRouter>
 			<Footer />

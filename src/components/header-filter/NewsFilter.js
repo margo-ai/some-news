@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
 
 const FilterList = styled.ul`
     list-style: none;
@@ -22,28 +23,45 @@ const FilterItem = styled.li`
         text-decoration: none;  
         color: #000;
         padding: 10px 0;
-        &:hover {
-        background-color: #000;
-        color: #fff;
-        transition: all 0.5s ease;
-    }
+            &:hover {
+            background-color: #000;
+            color: #fff;
+            transition: all 0.5s ease;
+        }
     }
 `;
 
-const NewsFilter = () => {
+const NewsFilter = ({setCategory}) => {
+
+    function handleCategory(category) {
+        setCategory(category)
+    }
+
     return (
         <FilterList>
             <FilterItem>
-                <a href="#">Business</a>
+                <NavLink 
+                    style={({isActive}) => ({color: isActive ? '#fff' : 'inherit', backgroundColor: isActive ? '#000' : 'inherit'})}
+                    to="/business"
+                    onClick={() => handleCategory('business')}>Business</NavLink>
             </FilterItem>
             <FilterItem>
-                <a href="#">Technology</a>
+                <NavLink 
+                    style={({isActive}) => ({color: isActive ? '#fff' : 'inherit', backgroundColor: isActive ? '#000' : 'inherit'})}
+                    to="/technology"
+                    onClick={() => handleCategory('technology')}>Technology</NavLink>
             </FilterItem>
             <FilterItem>
-                <a href="#">Sports</a>
+                <NavLink 
+                    style={({isActive}) => ({color: isActive ? '#fff' : 'inherit', backgroundColor: isActive ? '#000' : 'inherit'})}
+                    to="/sports"
+                    onClick={() => handleCategory('sports')}>Sports</NavLink>
             </FilterItem>
             <FilterItem>
-                <a href="#">Entertainment</a>
+                <NavLink 
+                    style={({isActive}) => ({color: isActive ? '#fff' : 'inherit', backgroundColor: isActive ? '#000' : 'inherit'})}
+                    to="/entertainment"
+                    onClick={() => handleCategory('entertainment')}>Entertainment</NavLink>
             </FilterItem>
         </FilterList>
     );

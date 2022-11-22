@@ -70,25 +70,28 @@ const SomeInfo = styled.div`
 
 const CategoryPage = ({category}) => {
     const [newsList, setNewsList] = useState([]);
-
     const {getNewsByCategory} = useNewsService();
-
-    
 
     useEffect(() => {
 		getNewsByCategory(category)
 			.then(setNewsList)
-	}, [])
+	}, [category])
 
     console.log(newsList);
 
+  
+
     function renderItems(arr) {
         const items = arr.map((item) => {
-            let now = new Date();
-            let nowHour = now.getHours();
-            let newsDate = new Date(item.publishedTime);
-            let newsHour = newsDate.getHours();
-            let timeAgo = nowHour - newsHour;            
+            function findTime() {
+                let now = new Date();
+                let nowHour = now.getHours();
+                let newsDate = new Date(item.publishedTime);
+                let newsHour = newsDate.getHours();
+                return nowHour - newsHour;      
+            }
+            
+            let timeAgo = findTime();
 
             return (
                 <NewsItem key={item.id}>
@@ -118,10 +121,13 @@ const CategoryPage = ({category}) => {
 
     const items = renderItems(newsList);
 
+    function toUpperCase(word) {
+        return word[0].toUpperCase() + word.slice(1);
+    }
 
     return (
         <Container>
-            <Title>{category} News</Title>
+            <Title>{toUpperCase(category)} News</Title>
             {items}
         </Container>
     );

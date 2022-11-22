@@ -98,9 +98,7 @@ const NewsSection = () => {
     const [newsList, setNewsList] = useState([]);
 
     const {getNews} = useNewsService();
-
-    
-
+   
     useEffect(() => {
 		getNews()
 			.then(setNewsList)
@@ -110,11 +108,15 @@ const NewsSection = () => {
 
     function renderItems(arr) {
         const items = arr.map((item) => {
-            let now = new Date();
-            let nowHour = now.getHours();
-            let newsDate = new Date(item.publishedTime);
-            let newsHour = newsDate.getHours();
-            let timeAgo = nowHour - newsHour;            
+            function findTime() {
+                let now = new Date();
+                let nowHour = now.getHours();
+                let newsDate = new Date(item.publishedTime);
+                let newsHour = newsDate.getHours();
+                return nowHour - newsHour;      
+            }
+            
+            let timeAgo = findTime();          
 
             return (
                 <NewsItem key={item.id}>
