@@ -9,13 +9,13 @@ const Main = styled.main`
 `;
 
 
-const MainSection = () => {
+const MainPage = () => {
     return (
         <Main>
-            <TopNews />
+            {/* <TopNews /> */}
             <NewsSection />
         </Main>
     );
 };
 
-export default MainSection;
+export default MainPage;

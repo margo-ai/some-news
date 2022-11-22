@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 
 const Container = styled.footer`
+    margin-top: 20px;
     padding: 31px 0;
     background-color: #FDFDFD;
     display: flex;
