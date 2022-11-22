@@ -1,11 +1,9 @@
-import React, { useEffect } from 'react';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-// import NewsItem from '../news-item/NewsItem';
 import useNewsService from '../../services/NewsService';
 
 const Container = styled.div`
-    /* margin-top: 56px; */
+    margin-top: 56px;
 `;
 
 const Title = styled.h3`
@@ -20,29 +18,6 @@ const NewsList = styled.ul`
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 60px 30px;
-`;
-
-const LoadNews = styled.button`
-    display: block;
-    margin: 0 auto;
-    margin-top: 50px;
-    width: 200px;
-    height: 50px;
-     
-    cursor: pointer;
-    font-family: 'Playfair Display', serif;
-    font-size: 20px;
-    font-weight: 700;
-    border: none;
-    color: #fff;
-    background-color: #000;
-    border-radius: 4px;
-    &:hover {
-        color: #000;
-        background-color: #fff;
-        border: 1px solid #000;
-        transition: all 0.5s ease;
-    }
 `;
 
 const NewsItem = styled.li`
@@ -93,16 +68,15 @@ const SomeInfo = styled.div`
     justify-content: space-between;
 `;
 
-const NewsSection = () => {
-
+const CategoryPage = ({category}) => {
     const [newsList, setNewsList] = useState([]);
 
-    const {getNews} = useNewsService();
+    const {getNewsByCategory} = useNewsService();
 
     
 
     useEffect(() => {
-		getNews()
+		getNewsByCategory(category)
 			.then(setNewsList)
 	}, [])
 
@@ -147,11 +121,10 @@ const NewsSection = () => {
 
     return (
         <Container>
-            <Title>Latest News</Title>
+            <Title>{category} News</Title>
             {items}
-            {/* <LoadNews>More news</LoadNews> */}
         </Container>
     );
 };
 
-export default NewsSection;
+export default CategoryPage;

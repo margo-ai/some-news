@@ -3,7 +3,10 @@ import MainPage from './components/pages/MainPage';
 import Footer from './components/footer/Footer';
 import { useEffect } from 'react';
 import './App.css';
-import useNewsService from './services/NewsService';
+
+import {BrowserRouter, BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import CategoryPage from './components/pages/CategoryPage';
+
 
 
 function App() {
@@ -20,7 +23,14 @@ function App() {
 	return (
 		<div className="App">
 			<HeaderSection />
-			<MainPage />
+			<BrowserRouter>
+				<Routes>
+					<Route path="/" element={<MainPage />} />
+					<Route 
+						path="/category" 
+						element={<CategoryPage category='Entertainment' />}/>
+				</Routes>
+			</BrowserRouter>
 			<Footer />
 		</div>
 	);

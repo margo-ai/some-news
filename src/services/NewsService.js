@@ -44,6 +44,21 @@ const useNewsService = () => {
         return res.articles.map(_transformNews);
     }
 
+    const getNewsByCategory = async (category) => {
+        const res = await getResource(`${_apiBase}&category=${category}&${_apiKey }`);
+        return res.articles.map(_transformNews);
+    }
+
+    // const getSportsNews = async () => {
+    //     const res = await getResource(`${_apiBase}&category=sports&${_apiKey }`);
+    //     return res.articles.map(_transformNews);
+    // }
+
+    // const getTechnologyNews = async () => {
+    //     const res = await getResource(`${_apiBase}&category=technology&${_apiKey }`);
+    //     return res.articles.map(_transformNews);
+    // }
+
     const _transformNews = (news) => {
         return {
             id: uuidv4(),
@@ -56,7 +71,7 @@ const useNewsService = () => {
         }
     }
 
-    return {getNews}
+    return {getNews, getNewsByCategory};
 
 };
 
