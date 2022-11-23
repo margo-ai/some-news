@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
@@ -34,8 +34,15 @@ const FilterItem = styled.li`
 const NewsFilter = ({setCategory}) => {
 
     function handleCategory(category) {
-        setCategory(category)
+        setCategory(category);
+        localStorage.setItem("category", category);
+        console.log(category);
     }
+
+    useEffect(() => {
+        
+    }, [])
+    
 
     return (
         <FilterList>

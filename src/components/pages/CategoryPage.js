@@ -10,6 +10,7 @@ const Title = styled.h3`
     font-family: 'Roboto', sans-serif;
     font-size: 36px;
     line-height: 42px;
+    text-transform: capitalize;
 `;
 
 const NewsList = styled.ul`
@@ -70,12 +71,17 @@ const SomeInfo = styled.div`
 
 const CategoryPage = ({category}) => {
     const [newsList, setNewsList] = useState([]);
+    
     const {getNewsByCategory} = useNewsService();
+    console.log(category);
 
     useEffect(() => {
 		getNewsByCategory(category)
 			.then(setNewsList)
 	}, [category])
+
+
+    console.log(category);
 
     console.log(newsList);
 
@@ -121,13 +127,13 @@ const CategoryPage = ({category}) => {
 
     const items = renderItems(newsList);
 
-    function toUpperCase(word) {
-        return word[0].toUpperCase() + word.slice(1);
-    }
+    // function toUpperCase(word) {
+    //     return word[0].toUpperCase() + word.slice(1);
+    // }
 
     return (
         <Container>
-            <Title>{toUpperCase(category)} News</Title>
+            <Title>{category} News</Title>
             {items}
         </Container>
     );

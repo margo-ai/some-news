@@ -18,7 +18,17 @@ function App() {
 	// }, [])
 
 	const [category, setCategory] = useState(null);
-
+	
+	useEffect(() => {
+		const categoryNews = localStorage.getItem('category');
+		if (categoryNews) {
+			setCategory(categoryNews)
+		}
+	}, [])
+	
+	
+	console.log(category);
+	
 	return (
 		<div className="App">
 			<BrowserRouter>			
@@ -28,6 +38,7 @@ function App() {
 					<Route 
 						path=":category" 
 						element={<CategoryPage category={category} />}/>
+					<Route path='*' element={<MainPage />}/>
 				</Routes>
 			</BrowserRouter>
 			<Footer />
