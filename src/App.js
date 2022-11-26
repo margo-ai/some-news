@@ -27,7 +27,7 @@ function App() {
 	}, [])
 	
 	
-	console.log(category);
+	// console.log(category);
 	
 	return (
 		<div className="App">

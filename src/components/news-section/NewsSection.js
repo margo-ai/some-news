@@ -3,6 +3,8 @@ import { useState } from 'react';
 import styled from 'styled-components';
 // import NewsItem from '../news-item/NewsItem';
 import useNewsService from '../../services/NewsService';
+import ErrorMessage from '../errorMessage/ErrorMessage';
+import { Oval } from 'react-loader-spinner';
 
 const Container = styled.div`
     /* margin-top: 56px; */
@@ -93,18 +95,26 @@ const SomeInfo = styled.div`
     justify-content: space-between;
 `;
 
+const SpinnerWrapper = styled.div`
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+`;
+
 const NewsSection = () => {
 
     const [newsList, setNewsList] = useState([]);
 
-    const {getNews} = useNewsService();
+    const {getNews, loading, error} = useNewsService();
    
     useEffect(() => {
 		getNews()
 			.then(setNewsList)
-	}, [])
 
+	}, [])
     console.log(newsList);
+
+
 
     function renderItems(arr) {
         const items = arr.map((item) => {
@@ -123,16 +133,16 @@ const NewsSection = () => {
                     <NewsImage>
                         <img src={item.image} alt="News Image" />
                     </NewsImage>                    
-                        <ItemTitle>{item.title}</ItemTitle>
-                        <SomeInfo>
-                            <span style={{marginRight: 16}}>
-                            {timeAgo > 1
-                            ? `${timeAgo} hours ago` 
-                            : `${timeAgo} hour ago`
-                            }
-                            </span>
-                            <span>{item.source}</span>
-                        </SomeInfo>
+                    <ItemTitle>{item.title}</ItemTitle>
+                    <SomeInfo>
+                        <span style={{marginRight: 16}}>
+                        {timeAgo > 1
+                        ? `${timeAgo} hours ago` 
+                        : `${timeAgo} hour ago`
+                        }
+                        </span>
+                        <span>{item.source}</span>
+                    </SomeInfo>
                 </NewsItem>    
             )
         });
@@ -146,10 +156,29 @@ const NewsSection = () => {
 
     const items = renderItems(newsList);
 
+    const errorMessage = error ? <ErrorMessage/> : null;
+    const spinner = loading 
+    ? <SpinnerWrapper>
+        <Oval
+        height={80}
+        width={80}
+        color="#000"
+        wrapperStyle={{}}
+        wrapperClass=""
+        visible={true}
+        ariaLabel='oval-loading'
+        secondaryColor="#A8A8A8"
+        strokeWidth={2}
+        strokeWidthSecondary={2}  
+        />
+    </SpinnerWrapper>
+    : null;
 
     return (
         <Container>
             <Title>Latest News</Title>
+            {errorMessage}
+            {spinner}
             {items}
             {/* <LoadNews>More news</LoadNews> */}
         </Container>

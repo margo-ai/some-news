@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import useNewsService from '../../services/NewsService';
+import ErrorMessage from '../errorMessage/ErrorMessage';
+import { Oval } from 'react-loader-spinner';
 
 const Container = styled.div`
     margin-top: 56px;
@@ -69,11 +71,19 @@ const SomeInfo = styled.div`
     justify-content: space-between;
 `;
 
+const SpinnerWrapper = styled.div`
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+`;
+
+
 const CategoryPage = ({category}) => {
     const [newsList, setNewsList] = useState([]);
     
-    const {getNewsByCategory} = useNewsService();
-    console.log(category);
+    const {getNewsByCategory, loading, error} = useNewsService();
+    // console.log(category);
+
 
     useEffect(() => {
 		getNewsByCategory(category)
@@ -82,7 +92,6 @@ const CategoryPage = ({category}) => {
 
 
     console.log(category);
-
     console.log(newsList);
 
   
@@ -127,13 +136,29 @@ const CategoryPage = ({category}) => {
 
     const items = renderItems(newsList);
 
-    // function toUpperCase(word) {
-    //     return word[0].toUpperCase() + word.slice(1);
-    // }
+    const errorMessage = error ? <ErrorMessage/> : null;
+    const spinner = loading 
+    ? <SpinnerWrapper>
+        <Oval
+        height={80}
+        width={80}
+        color="#000"
+        wrapperStyle={{}}
+        wrapperClass=""
+        visible={true}
+        ariaLabel='oval-loading'
+        secondaryColor="#A8A8A8"
+        strokeWidth={2}
+        strokeWidthSecondary={2}  
+        />
+    </SpinnerWrapper>
+    : null;
 
     return (
         <Container>
             <Title>{category} News</Title>
+            {errorMessage}
+            {spinner}
             {items}
         </Container>
     );

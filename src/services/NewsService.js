@@ -1,47 +1,44 @@
-// import { UseHttp } from '../components/hooks/http.hook';
+// import { useHttp } from '../components/hooks/http.hook';
+import { useState } from 'react';
 import {v4 as uuidv4} from 'uuid';
 
 
 const useNewsService = () => {
-    // const {loading, request, error, clearError} = UseHttp();
 
-    // // top-headlines?country=jp&category=technology&
-
-    
-    // const _apiCategory = 'category=';
-
-    // const getTopNews = async () => {
-    //     const res = await request(`${_apiBase}&${_apiKey }`);
-    //     return res.articles.map(_transformNews)
-    // }
-
-
-    // const _transformNews = (newsPath) => {
-    //     return {
-    //         content: newsPath.content,
-    //         description: newsPath.description,
-    //         title: newsPath.title,
-    //         source: newsPath.source.name
-
-    //     }
-    // }
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
 
     const _apiBase = 'https://newsapi.org/v2/top-headlines/?country=us';
     const _apiKey = 'apiKey=0d128bf4661a476f88c003d0589b245a';
 
     const getResource = async (url) => {
-        let res = await fetch(url);
+        
+        setLoading(true);
 
-        if (!res.ok) {
-            throw new Error(`Could not fetch ${url}, status: ${response.status}`);
-        }
+        try {
+            const res = await fetch(url);
 
-        return await res.json();
+            if (!res.ok) {
+                throw new Error(`Could not fetch ${url}, status: ${response.status}`);
+            }
+
+            const data = await res.json();
+
+            setLoading(false);
+            return data;
+        } catch(e) {
+            setLoading(false);
+            setError(e.message);
+            throw e;
+        }                
     }
 
     const getNews = async () => {
         const res = await getResource(`${_apiBase}&${_apiKey }`);
-        return res.articles.map(_transformNews);
+        const filteredBySources = res.articles.filter(function(news) {
+            return news.source.name !== "BBC News" && news.source !== "Google News";
+        });
+        return filteredBySources.map(_transformNews);
     }
 
     const getNewsByCategory = async (category) => {
@@ -71,7 +68,7 @@ const useNewsService = () => {
         }
     }
 
-    return {getNews, getNewsByCategory};
+    return {getNews, getNewsByCategory, loading, error};
 
 };
 

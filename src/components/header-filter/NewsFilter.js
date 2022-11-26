@@ -36,7 +36,7 @@ const NewsFilter = ({setCategory}) => {
     function handleCategory(category) {
         setCategory(category);
         localStorage.setItem("category", category);
-        console.log(category);
+        // console.log(category);
     }
 
     useEffect(() => {
