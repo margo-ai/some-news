@@ -11,7 +11,7 @@ const FilterList = styled.ul`
 
 const FilterItem = styled.li`
     text-align: center;
-    width: 25%;
+    width: 20%;
     font-size: 20px;   
     border-right: 1px solid #000;
     &:last-child {
@@ -49,8 +49,8 @@ const NewsFilter = ({setCategory}) => {
             <FilterItem>
                 <NavLink 
                     style={({isActive}) => ({color: isActive ? '#fff' : 'inherit', backgroundColor: isActive ? '#000' : 'inherit'})}
-                    to="/business"
-                    onClick={() => handleCategory('business')}>Business</NavLink>
+                    to="/general"
+                    onClick={() => handleCategory('general')}>General</NavLink>
             </FilterItem>
             <FilterItem>
                 <NavLink 
@@ -69,6 +69,12 @@ const NewsFilter = ({setCategory}) => {
                     style={({isActive}) => ({color: isActive ? '#fff' : 'inherit', backgroundColor: isActive ? '#000' : 'inherit'})}
                     to="/entertainment"
                     onClick={() => handleCategory('entertainment')}>Entertainment</NavLink>
+            </FilterItem>
+            <FilterItem>
+                <NavLink 
+                    style={({isActive}) => ({color: isActive ? '#fff' : 'inherit', backgroundColor: isActive ? '#000' : 'inherit'})}
+                    to="/science"
+                    onClick={() => handleCategory('science')}>Science</NavLink>
             </FilterItem>
         </FilterList>
     );

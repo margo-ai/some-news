@@ -34,7 +34,7 @@ const useNewsService = () => {
     }
 
     const getNews = async () => {
-        const res = await getResource(`${_apiBase}&${_apiKey }`);
+        const res = await getResource(`${_apiBase}&pageSize=25&${_apiKey }`);
         const filteredBySources = res.articles.filter(function(news) {
             return news.source.name !== "BBC News" && news.source !== "Google News";
         });
@@ -43,6 +43,7 @@ const useNewsService = () => {
 
     const getNewsByCategory = async (category) => {
         const res = await getResource(`${_apiBase}&category=${category}&${_apiKey }`);
+        console.log(res);
         return res.articles.map(_transformNews);
     }
 
@@ -67,6 +68,7 @@ const useNewsService = () => {
             url: news.url
         }
     }
+    
 
     return {getNews, getNewsByCategory, loading, error};
 
