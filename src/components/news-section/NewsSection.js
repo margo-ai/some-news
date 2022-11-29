@@ -4,6 +4,7 @@ import styled from 'styled-components';
 // import NewsItem from '../news-item/NewsItem';
 import useNewsService from '../../services/NewsService';
 import ErrorMessage from '../errorMessage/ErrorMessage';
+import errorImg from '../../assets/img/notfound.gif';
 import { Oval } from 'react-loader-spinner';
 
 const Container = styled.div`
@@ -126,13 +127,18 @@ const NewsSection = () => {
                 return nowHour - newsHour;      
             }
             
-            let timeAgo = findTime();          
+            let timeAgo = findTime();     
+            
+            if (item.image == "null") {
+                item.image = errorImg;
+            }
+
 
             return (
-                <NewsItem key={item.id}>
+                <NewsItem key={item.id}>                    
                     <NewsImage>
                         <img src={item.image} alt="News Image" />
-                    </NewsImage>                    
+                    </NewsImage>  
                     <ItemTitle>{item.title}</ItemTitle>
                     <SomeInfo>
                         <span style={{marginRight: 16}}>

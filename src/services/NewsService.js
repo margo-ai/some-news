@@ -1,6 +1,7 @@
 // import { useHttp } from '../components/hooks/http.hook';
-import { useState } from 'react';
+import { useState} from 'react';
 import {v4 as uuidv4} from 'uuid';
+// import errorImg from '../assets/img/notfound.gif';
 
 
 const useNewsService = () => {
@@ -25,6 +26,7 @@ const useNewsService = () => {
             const data = await res.json();
 
             setLoading(false);
+            setError(false);
             return data;
         } catch(e) {
             setLoading(false);
@@ -33,18 +35,23 @@ const useNewsService = () => {
         }                
     }
 
+    function filterNewsBySource(articles) {
+        let filteredNews = articles.filter(function(news) {
+            return news.source.name !== "BBC News" && news.source.name !== "Google News" && news.source.name !== "YouTube" && news.source.name !== "WCVB Boston";
+        });
+        return filteredNews;
+    }
+
     const getNews = async () => {
         const res = await getResource(`${_apiBase}&pageSize=25&${_apiKey }`);
-        const filteredBySources = res.articles.filter(function(news) {
-            return news.source.name !== "BBC News" && news.source !== "Google News";
-        });
+        const filteredBySources = filterNewsBySource(res.articles)
         return filteredBySources.map(_transformNews);
     }
 
     const getNewsByCategory = async (category) => {
-        const res = await getResource(`${_apiBase}&category=${category}&${_apiKey }`);
-        console.log(res);
-        return res.articles.map(_transformNews);
+        const res = await getResource(`${_apiBase}&pageSize=30&category=${category}&${_apiKey }`);
+        const filteredBySources = filterNewsBySource(res.articles);
+        return filteredBySources.map(_transformNews);
     }
 
     // const getSportsNews = async () => {
@@ -69,7 +76,6 @@ const useNewsService = () => {
         }
     }
     
-
     return {getNews, getNewsByCategory, loading, error};
 
 };

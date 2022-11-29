@@ -49,8 +49,8 @@ const NewsFilter = ({setCategory}) => {
             <FilterItem>
                 <NavLink 
                     style={({isActive}) => ({color: isActive ? '#fff' : 'inherit', backgroundColor: isActive ? '#000' : 'inherit'})}
-                    to="/general"
-                    onClick={() => handleCategory('general')}>General</NavLink>
+                    to="/health"
+                    onClick={() => handleCategory('health')}>Health</NavLink>
             </FilterItem>
             <FilterItem>
                 <NavLink 
