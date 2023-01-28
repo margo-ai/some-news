@@ -107,6 +107,7 @@ const CategoryPage = ({category}) => {
             }
             
             let timeAgo = findTime();
+        
 
             return (
                 <NewsItem key={item.id}>
@@ -116,9 +117,11 @@ const CategoryPage = ({category}) => {
                         <ItemTitle>{item.title}</ItemTitle>
                         <SomeInfo>
                             <span style={{marginRight: 16}}>
+                            
                             {timeAgo > 1
                             ? `${timeAgo} hours ago` 
-                            : `${timeAgo} hour ago`
+                            : timeAgo == 1 ? `${timeAgo} hour ago`
+                            : 'Yesterday'
                             }
                             </span>
                             <span>{item.source}</span>

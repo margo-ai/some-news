@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 // import NewsItem from '../news-item/NewsItem';
 import useNewsService from '../../services/NewsService';
@@ -8,7 +9,7 @@ import errorImg from '../../assets/img/notfound.gif';
 import { Oval } from 'react-loader-spinner';
 
 const Container = styled.div`
-    /* margin-top: 56px; */
+    margin-top: 56px;
 `;
 
 const Title = styled.h3`
@@ -25,35 +26,30 @@ const NewsList = styled.ul`
     gap: 60px 30px;
 `;
 
-const LoadNews = styled.button`
-    display: block;
-    margin: 0 auto;
-    margin-top: 50px;
-    width: 200px;
-    height: 50px;
+// const LoadNews = styled.button`
+//     display: block;
+//     margin: 0 auto;
+//     margin-top: 50px;
+//     width: 200px;
+//     height: 50px;
      
-    cursor: pointer;
-    font-family: 'Playfair Display', serif;
-    font-size: 20px;
-    font-weight: 700;
-    border: none;
-    color: #fff;
-    background-color: #000;
-    border-radius: 4px;
-    &:hover {
-        color: #000;
-        background-color: #fff;
-        border: 1px solid #000;
-        transition: all 0.5s ease;
-    }
-`;
+//     cursor: pointer;
+//     font-family: 'Playfair Display', serif;
+//     font-size: 20px;
+//     font-weight: 700;
+//     border: none;
+//     color: #fff;
+//     background-color: #000;
+//     border-radius: 4px;
+//     &:hover {
+//         color: #000;
+//         background-color: #fff;
+//         border: 1px solid #000;
+//         transition: all 0.5s ease;
+//     }
+// `;
 
-const NewsItem = styled.li`
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    min-height: 435px;
+const NewsItem = styled.li`    
     
     &:hover h3 {
         opacity: 0.5;
@@ -63,6 +59,15 @@ const NewsItem = styled.li`
         transform: scale(1.1);
         filter: grayscale(100%);
         transition: all 0.5s ease;
+    }
+
+    & a {
+        color: #000;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 435px;
+        text-decoration: none;
     }
 `;
 
@@ -102,7 +107,7 @@ const SpinnerWrapper = styled.div`
     margin-top: 25px;
 `;
 
-const NewsSection = () => {
+const MainNewsPage = () => {
 
     const [newsList, setNewsList] = useState([]);
 
@@ -129,6 +134,10 @@ const NewsSection = () => {
             
             let timeAgo = findTime();     
             
+            if (timeAgo < 0) {
+                timeAgo = 'Yesterday';
+            }
+
             if (item.image == "null") {
                 item.image = errorImg;
             }
@@ -136,19 +145,21 @@ const NewsSection = () => {
 
             return (
                 <NewsItem key={item.id}>                    
-                    <NewsImage>
-                        <img src={item.image} alt="News Image" />
-                    </NewsImage>  
-                    <ItemTitle>{item.title}</ItemTitle>
-                    <SomeInfo>
-                        <span style={{marginRight: 16}}>
-                        {timeAgo > 1
-                        ? `${timeAgo} hours ago` 
-                        : `${timeAgo} hour ago`
-                        }
-                        </span>
-                        <span>{item.source}</span>
-                    </SomeInfo>
+                    <Link to={`/main/${item.id}`}>
+                        <NewsImage>
+                            <img src={item.image} alt="News Image" />
+                        </NewsImage>  
+                        <ItemTitle>{item.title}</ItemTitle>
+                        <SomeInfo>
+                            <span style={{marginRight: 16}}>
+                            {timeAgo > 1
+                            ? `${timeAgo} hours ago` 
+                            : `${timeAgo} hour ago`
+                            }
+                            </span>
+                            <span>{item.source}</span>
+                        </SomeInfo>
+                    </Link>
                 </NewsItem>    
             )
         });
@@ -191,4 +202,4 @@ const NewsSection = () => {
     );
 };
 
-export default NewsSection;
+export default MainNewsPage;

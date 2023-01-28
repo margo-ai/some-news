@@ -1,11 +1,11 @@
 import HeaderSection from './components/header-section/HeaderSection';
-import MainPage from './components/pages/MainPage';
 import Footer from './components/footer/Footer';
 import { useEffect, useState } from 'react';
 import './App.css';
 
 import {BrowserRouter, BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import CategoryPage from './components/pages/CategoryPage';
+import MainNewsPage from './components/pages/MainNewsPage';
 
 
 
@@ -18,6 +18,7 @@ function App() {
 	// }, [])
 
 	const [category, setCategory] = useState(null);
+	
 	
 	useEffect(() => {
 		const categoryNews = localStorage.getItem('category');
@@ -34,11 +35,12 @@ function App() {
 			<BrowserRouter>			
 				<HeaderSection setCategory={setCategory}/>			
 				<Routes>
-					<Route path="/main" element={<MainPage />} />
+					<Route path="/main" element={<MainNewsPage />} />
+					<Route path="/main/:id" />
 					<Route 
 						path=":category" 
 						element={<CategoryPage category={category} />}/>
-					<Route path='*' element={<MainPage />}/>
+					<Route path="*" element={<MainNewsPage />}/>
 				</Routes>
 			</BrowserRouter>
 			<Footer />

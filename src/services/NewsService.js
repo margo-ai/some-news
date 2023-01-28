@@ -49,7 +49,7 @@ const useNewsService = () => {
     }
 
     const getNewsByCategory = async (category) => {
-        const res = await getResource(`${_apiBase}&pageSize=30&category=${category}&${_apiKey }`);
+        const res = await getResource(`${_apiBase}&pageSize=25&category=${category}&${_apiKey }`);
         const filteredBySources = filterNewsBySource(res.articles);
         return filteredBySources.map(_transformNews);
     }

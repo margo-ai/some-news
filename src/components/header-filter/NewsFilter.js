@@ -11,7 +11,7 @@ const FilterList = styled.ul`
 
 const FilterItem = styled.li`
     text-align: center;
-    width: 20%;
+    width: 25%;
     font-size: 20px;   
     border-right: 1px solid #000;
     &:last-child {
@@ -46,12 +46,12 @@ const NewsFilter = ({setCategory}) => {
 
     return (
         <FilterList>
-            <FilterItem>
+            {/* <FilterItem>
                 <NavLink 
                     style={({isActive}) => ({color: isActive ? '#fff' : 'inherit', backgroundColor: isActive ? '#000' : 'inherit'})}
                     to="/health"
                     onClick={() => handleCategory('health')}>Health</NavLink>
-            </FilterItem>
+            </FilterItem> */}
             <FilterItem>
                 <NavLink 
                     style={({isActive}) => ({color: isActive ? '#fff' : 'inherit', backgroundColor: isActive ? '#000' : 'inherit'})}
