@@ -8,6 +8,9 @@ import ErrorMessage from '../errorMessage/ErrorMessage';
 import errorImg from '../../assets/img/notfound.gif';
 import { Oval } from 'react-loader-spinner';
 
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchNews } from './mainNewsSlice';
+
 const Container = styled.div`
     margin-top: 56px;
 `;
@@ -109,17 +112,19 @@ const SpinnerWrapper = styled.div`
 
 const MainNewsPage = () => {
 
-    const [newsList, setNewsList] = useState([]);
-
-    const {getNews, loading, error} = useNewsService();
+    // const [newsList, setNewsList] = useState([]);
+    // const {getNews, loading, error} = useNewsService();
    
-    useEffect(() => {
-		getNews()
-			.then(setNewsList)
 
-	}, [])
+    const dispatch = useDispatch();
+    const newsLoadingStatus = useSelector(state => state.news.newsLoadingStatus);
+    const newsList = useSelector(state => state.news.news);
+    console.log(newsLoadingStatus);
     console.log(newsList);
 
+    useEffect(() => {
+        dispatch(fetchNews());
+	}, [])
 
 
     function renderItems(arr) {
@@ -173,8 +178,8 @@ const MainNewsPage = () => {
 
     const items = renderItems(newsList);
 
-    const errorMessage = error ? <ErrorMessage/> : null;
-    const spinner = loading 
+    const errorMessage = (newsLoadingStatus === "error") ? <ErrorMessage/> : null;
+    const spinner = (newsLoadingStatus === "loading") 
     ? <SpinnerWrapper>
         <Oval
         height={80}

@@ -54,16 +54,6 @@ const useNewsService = () => {
         return filteredBySources.map(_transformNews);
     }
 
-    // const getSportsNews = async () => {
-    //     const res = await getResource(`${_apiBase}&category=sports&${_apiKey }`);
-    //     return res.articles.map(_transformNews);
-    // }
-
-    // const getTechnologyNews = async () => {
-    //     const res = await getResource(`${_apiBase}&category=technology&${_apiKey }`);
-    //     return res.articles.map(_transformNews);
-    // }
-
     const _transformNews = (news) => {
         return {
             id: uuidv4(),
