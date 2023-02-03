@@ -1,6 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { selectCategory } from '../pages/newsSlice';
 
 const FilterList = styled.ul`
     list-style: none;
@@ -31,18 +33,15 @@ const FilterItem = styled.li`
     }
 `;
 
-const NewsFilter = ({setCategory}) => {
+const NewsFilter = () => {
+
+    const dispatch = useDispatch();
 
     function handleCategory(category) {
-        setCategory(category);
+        dispatch(selectCategory(category));
         localStorage.setItem("category", category);
         // console.log(category);
-    }
-
-    useEffect(() => {
-        
-    }, [])
-    
+    }    
 
     return (
         <FilterList>
@@ -74,7 +73,7 @@ const NewsFilter = ({setCategory}) => {
                 <NavLink 
                     style={({isActive}) => ({color: isActive ? '#fff' : 'inherit', backgroundColor: isActive ? '#000' : 'inherit'})}
                     to="/science"
-                    onClick={() => handleCategory('science')}>Science</NavLink>
+                    onClick={() => handleCategory('business')}>Business</NavLink>
             </FilterItem>
         </FilterList>
     );

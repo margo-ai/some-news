@@ -1,15 +1,12 @@
 import React, { useEffect } from 'react';
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-// import NewsItem from '../news-item/NewsItem';
-import useNewsService from '../../services/NewsService';
 import ErrorMessage from '../errorMessage/ErrorMessage';
 import errorImg from '../../assets/img/notfound.gif';
 import { Oval } from 'react-loader-spinner';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchNews } from './mainNewsSlice';
+import { fetchNews } from './newsSlice';
 
 const Container = styled.div`
     margin-top: 56px;
@@ -75,14 +72,14 @@ const NewsItem = styled.li`
 `;
 
 const NewsImage = styled.div`
+    height: 200px;
     margin-bottom: 16px;
-
+    border-radius: 5px;
     overflow: hidden;
     & img {
         width: 100%;
-        height: 200px;
+        height: 100%;
         object-fit: cover;
-        border-radius: 5px;
     }  
   
 `;
@@ -112,10 +109,6 @@ const SpinnerWrapper = styled.div`
 
 const MainNewsPage = () => {
 
-    // const [newsList, setNewsList] = useState([]);
-    // const {getNews, loading, error} = useNewsService();
-   
-
     const dispatch = useDispatch();
     const newsLoadingStatus = useSelector(state => state.news.newsLoadingStatus);
     const newsList = useSelector(state => state.news.news);
@@ -123,6 +116,7 @@ const MainNewsPage = () => {
     console.log(newsList);
 
     useEffect(() => {
+        localStorage.clear();
         dispatch(fetchNews());
 	}, [])
 
@@ -139,13 +133,13 @@ const MainNewsPage = () => {
             
             let timeAgo = findTime();     
             
-            if (timeAgo < 0) {
-                timeAgo = 'Yesterday';
-            }
+            // if (timeAgo < 0) {
+            //     timeAgo = 'Yesterday';
+            // }
 
-            if (item.image == "null") {
-                item.image = errorImg;
-            }
+            // if (item.image == "null") {
+            //     item.image = errorImg;
+            // }
 
 
             return (

@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect} from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import useNewsService from '../../services/NewsService';
 import ErrorMessage from '../errorMessage/ErrorMessage';
 import { Oval } from 'react-loader-spinner';
+
+import { fetchNewsByCategory, selectCategory } from './newsSlice';
 
 const Container = styled.div`
     margin-top: 56px;
@@ -43,15 +45,14 @@ const NewsItem = styled.li`
 
 const NewsImage = styled.div`
     margin-bottom: 16px;
-
+    height: 200px;
     overflow: hidden;
+    border-radius: 5px;
     & img {
         width: 100%;
-        height: 200px;
+        height: 100%;
         object-fit: cover;
-        border-radius: 5px;
     }  
-  
 `;
 
 const ItemTitle = styled.h3`
@@ -78,16 +79,24 @@ const SpinnerWrapper = styled.div`
 `;
 
 
-const CategoryPage = ({category}) => {
-    const [newsList, setNewsList] = useState([]);
+const CategoryPage = () => {
+    // const [newsList, setNewsList] = useState([]);
     
-    const {getNewsByCategory, loading, error} = useNewsService();
+    // const {getNewsByCategory, loading, error} = useNewsService();
     // console.log(category);
 
+    const dispatch = useDispatch();
+    const newsLoadingStatus = useSelector(state => state.news.newsLoadingStatus);
+    const newsList = useSelector(state => state.news.news);
+    const category = useSelector(state => state.news.category);
+
+    console.log(newsLoadingStatus);
+    console.log(newsList);
+    console.log(category);
 
     useEffect(() => {
-		getNewsByCategory(category)
-			.then(setNewsList)
+        const categoryNews = localStorage.getItem('category');
+		categoryNews ? dispatch(fetchNewsByCategory(categoryNews)) : dispatch(fetchNewsByCategory(category));	
 	}, [category])
 
 
@@ -139,8 +148,8 @@ const CategoryPage = ({category}) => {
 
     const items = renderItems(newsList);
 
-    const errorMessage = error ? <ErrorMessage/> : null;
-    const spinner = loading 
+    const errorMessage = (newsLoadingStatus === "error") ? <ErrorMessage/> : null;
+    const spinner = (newsLoadingStatus === "loading") 
     ? <SpinnerWrapper>
         <Oval
         height={80}

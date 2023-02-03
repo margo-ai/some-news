@@ -1,12 +1,10 @@
 import HeaderSection from './components/header-section/HeaderSection';
 import Footer from './components/footer/Footer';
-import { useEffect, useState } from 'react';
 import './App.css';
 
 import {BrowserRouter, BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import CategoryPage from './components/pages/CategoryPage';
 import MainNewsPage from './components/pages/MainNewsPage';
-
 
 
 function App() {
@@ -17,15 +15,14 @@ function App() {
 	  
 	// }, [])
 
-	const [category, setCategory] = useState(null);
+	// const [category, setCategory] = useState(null);
 	
-	
-	useEffect(() => {
-		const categoryNews = localStorage.getItem('category');
-		if (categoryNews) {
-			setCategory(categoryNews)
-		}
-	}, [])
+	// useEffect(() => {
+	// 	// const categoryNews = localStorage.getItem('category');
+	// 	// if (categoryNews) {
+	// 	// 	dispatch(selectCategory(categoryNews));
+	// 	// }
+	// }, [])
 	
 	
 	// console.log(category);
@@ -33,13 +30,13 @@ function App() {
 	return (
 		<div className="App">
 			<BrowserRouter>			
-				<HeaderSection setCategory={setCategory}/>			
+				<HeaderSection/>			
 				<Routes>
 					<Route path="/main" element={<MainNewsPage />} />
 					<Route path="/main/:id" />
 					<Route 
 						path=":category" 
-						element={<CategoryPage category={category} />}/>
+						element={<CategoryPage />}/>
 					<Route path="*" element={<MainNewsPage />}/>
 				</Routes>
 			</BrowserRouter>
