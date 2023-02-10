@@ -1,10 +1,12 @@
 import React, { useEffect} from 'react';
+import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import ErrorMessage from '../errorMessage/ErrorMessage';
 import { Oval } from 'react-loader-spinner';
+import { findTime } from '../../helpers/transformData';
 
-import { fetchNewsByCategory, selectCategory } from './newsSlice';
+import { fetchNewsByCategory } from './newsSlice';
 
 const Container = styled.div`
     margin-top: 56px;
@@ -40,6 +42,15 @@ const NewsItem = styled.li`
         transform: scale(1.1);
         filter: grayscale(100%);
         transition: all 0.5s ease;
+    }
+
+    & a {
+        color: #000;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 435px;
+        text-decoration: none;
     }
 `;
 
@@ -107,26 +118,18 @@ const CategoryPage = () => {
 
     function renderItems(arr) {
         const items = arr.map((item) => {
-            function findTime() {
-                let now = new Date();
-                let nowHour = now.getHours();
-                let newsDate = new Date(item.publishedTime);
-                let newsHour = newsDate.getHours();
-                return nowHour - newsHour;      
-            }
             
-            let timeAgo = findTime();
-        
+            const timeAgo = findTime(item.publishedTime);        
 
             return (
                 <NewsItem key={item.id}>
-                    <NewsImage>
-                        <img src={item.image} alt="News Image" />
-                    </NewsImage>                    
+                    <Link to={`/${category}/${item.id}`}>
+                        <NewsImage>
+                            <img src={item.image} alt="News Image" />
+                        </NewsImage>                    
                         <ItemTitle>{item.title}</ItemTitle>
                         <SomeInfo>
                             <span style={{marginRight: 16}}>
-                            
                             {timeAgo > 1
                             ? `${timeAgo} hours ago` 
                             : timeAgo == 1 ? `${timeAgo} hour ago`
@@ -135,6 +138,7 @@ const CategoryPage = () => {
                             </span>
                             <span>{item.source}</span>
                         </SomeInfo>
+                    </Link>
                 </NewsItem>    
             )
         });

@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk, nanoid } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import { _transformNews, filterNewsBySource } from "../../helpers/transformData";
 
 
@@ -8,7 +8,8 @@ import { _transformNews, filterNewsBySource } from "../../helpers/transformData"
 const initialState = {
     news: [],
     category: '',
-    newsLoadingStatus: 'idle'
+    newsLoadingStatus: 'idle',
+    selectedNews: null
 }
 
 const _apiBase = 'https://newsapi.org/v2/top-headlines/?country=us';
@@ -44,6 +45,9 @@ const newsSlice = createSlice({
     reducers: {
         selectCategory: (state, action) => {
             state.category = action.payload;
+        },
+        setNews: (state, action) => {
+            state.selectedNews = action.payload;
         }
     },
     extraReducers: (builder) => {
@@ -69,6 +73,6 @@ const newsSlice = createSlice({
 });
 
 const {actions, reducer} = newsSlice;
-export const {selectCategory} = actions;
+export const {selectCategory, setNews} = actions;
 
 export default reducer;

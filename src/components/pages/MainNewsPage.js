@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import ErrorMessage from '../errorMessage/ErrorMessage';
 import errorImg from '../../assets/img/notfound.gif';
 import { Oval } from 'react-loader-spinner';
-
+import { findTime } from '../../helpers/transformData';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchNews } from './newsSlice';
 
@@ -112,6 +112,8 @@ const MainNewsPage = () => {
     const dispatch = useDispatch();
     const newsLoadingStatus = useSelector(state => state.news.newsLoadingStatus);
     const newsList = useSelector(state => state.news.news);
+
+
     console.log(newsLoadingStatus);
     console.log(newsList);
 
@@ -120,31 +122,20 @@ const MainNewsPage = () => {
         dispatch(fetchNews());
 	}, [])
 
+    function handleNews(newsId) {
+        // dispatch(setNews(newsId));
+        localStorage.setItem("newsId", newsId);
+        localStorage.setItem("newsList", JSON.stringify(newsList))
+    }
 
     function renderItems(arr) {
         const items = arr.map((item) => {
-            function findTime() {
-                let now = new Date();
-                let nowHour = now.getHours();
-                let newsDate = new Date(item.publishedTime);
-                let newsHour = newsDate.getHours();
-                return nowHour - newsHour;      
-            }
+           
+            const timeAgo = findTime(item.publishedTime);     
             
-            let timeAgo = findTime();     
-            
-            // if (timeAgo < 0) {
-            //     timeAgo = 'Yesterday';
-            // }
-
-            // if (item.image == "null") {
-            //     item.image = errorImg;
-            // }
-
-
             return (
                 <NewsItem key={item.id}>                    
-                    <Link to={`/main/${item.id}`}>
+                    <Link to={`/main/${item.id}`} onClick={() => handleNews(item.id)}>
                         <NewsImage>
                             <img src={item.image} alt="News Image" />
                         </NewsImage>  
@@ -153,7 +144,8 @@ const MainNewsPage = () => {
                             <span style={{marginRight: 16}}>
                             {timeAgo > 1
                             ? `${timeAgo} hours ago` 
-                            : `${timeAgo} hour ago`
+                            : timeAgo == 1 ? `${timeAgo} hour ago`
+                            : 'Yesterday'
                             }
                             </span>
                             <span>{item.source}</span>

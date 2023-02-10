@@ -5,6 +5,7 @@ import './App.css';
 import {BrowserRouter, BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import CategoryPage from './components/pages/CategoryPage';
 import MainNewsPage from './components/pages/MainNewsPage';
+import SingleNewsPage from './components/pages/SingleNewsPage';
 
 
 function App() {
@@ -33,7 +34,7 @@ function App() {
 				<HeaderSection/>			
 				<Routes>
 					<Route path="/main" element={<MainNewsPage />} />
-					<Route path="/main/:id" />
+					<Route path="/main/:newsId" element={<SingleNewsPage />}/>
 					<Route 
 						path=":category" 
 						element={<CategoryPage />}/>
