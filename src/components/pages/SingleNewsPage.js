@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { useSelector , useDispatch} from 'react-redux';
 import { findTime, cutContent } from '../../helpers/transformData';
 
+import { transformPublishingTime } from '../../helpers/transformData';
 
 const Container = styled.div`
     display: flex;
@@ -36,11 +37,26 @@ const InfoBlock = styled.div`
     display: flex;
     justify-content: space-between;
     font-size: 18px;
-    margin-top: 40px;
+    margin-top: 30px;
     color: #808080;
 `;
 
-
+const NewsUrl = styled.a`
+    width: 20%;
+    display: block;
+    font-size: 20px;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 50px;
+    padding: 10px;
+    background-color: #000;
+    color: #fff;
+    border-radius: 4px;
+    transition: all 0.5s ease-out;
+    &:hover {
+        background-color: #808080;
+    }
+`;
 
 const SingleNewsPage = () => {
     
@@ -77,32 +93,21 @@ const SingleNewsPage = () => {
     function renderNews(news) {
        const {content, image, source, title, url, publishedTime} = news;
 
-        function cutContent(text) {
-            let to = text.indexOf('[');
-            // let to = text.length - 1;
-            return text.slice(0, to);
-        }
-        
         const newContent = cutContent(content);
-        const timeAgo = findTime(publishedTime);
+        const publishingTime = transformPublishingTime(publishedTime);
 
         return (
-            <Container>                
+            <Container>       
+            <InfoBlock>                    
+                    <span>{publishingTime}</span>
+                    <span>{source}</span>
+                </InfoBlock>         
                 <Title>{title}</Title>
                 <Image>
                     <img src={image} />
                 </Image>
                 <Content>{newContent}</Content>
-                <InfoBlock>                    
-                    <span>
-                        {timeAgo > 1
-                            ? `${timeAgo} hours ago` 
-                            : timeAgo == 1 ? `${timeAgo} hour ago`
-                            : 'Yesterday'
-                        }
-                    </span>
-                    <span>{source}</span>
-                </InfoBlock>
+                <NewsUrl href={url}>Read at the source</NewsUrl>
                 
             </Container>    
         )

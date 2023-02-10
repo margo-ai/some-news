@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import ErrorMessage from '../errorMessage/ErrorMessage';
 import { Oval } from 'react-loader-spinner';
-import { findTime } from '../../helpers/transformData';
+import { findTime, transformPublishingTime } from '../../helpers/transformData';
 
 import { fetchNewsByCategory } from './newsSlice';
 
@@ -28,12 +28,7 @@ const NewsList = styled.ul`
 `;
 
 const NewsItem = styled.li`
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    min-height: 435px;
-    
+       
     &:hover h3 {
         opacity: 0.5;
         transition: all 0.5s ease;
@@ -67,8 +62,8 @@ const NewsImage = styled.div`
 `;
 
 const ItemTitle = styled.h3`
-    font-size: 24px;
-    line-height: 32px;
+    font-size: 22px;
+    line-height: 29px;
     font-weight: 700;
     margin-bottom: auto;
 `;
@@ -119,24 +114,22 @@ const CategoryPage = () => {
     function renderItems(arr) {
         const items = arr.map((item) => {
             
-            const timeAgo = findTime(item.publishedTime);        
+            const {id, image, title, publishedTime, source} = item;
+
+            const publishingTime = transformPublishingTime(publishedTime);       
 
             return (
-                <NewsItem key={item.id}>
-                    <Link to={`/${category}/${item.id}`}>
+                <NewsItem key={id}>
+                    <Link to={`/${category}/${id}`}>
                         <NewsImage>
-                            <img src={item.image} alt="News Image" />
+                            <img src={image} alt="News Image" />
                         </NewsImage>                    
-                        <ItemTitle>{item.title}</ItemTitle>
+                        <ItemTitle>{title}</ItemTitle>
                         <SomeInfo>
                             <span style={{marginRight: 16}}>
-                            {timeAgo > 1
-                            ? `${timeAgo} hours ago` 
-                            : timeAgo == 1 ? `${timeAgo} hour ago`
-                            : 'Yesterday'
-                            }
+                            {publishingTime}
                             </span>
-                            <span>{item.source}</span>
+                            <span>{source}</span>
                         </SomeInfo>
                     </Link>
                 </NewsItem>    

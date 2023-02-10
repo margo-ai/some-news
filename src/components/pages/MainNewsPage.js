@@ -8,6 +8,8 @@ import { findTime } from '../../helpers/transformData';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchNews } from './newsSlice';
 
+import { transformPublishingTime } from '../../helpers/transformData';
+
 const Container = styled.div`
     margin-top: 56px;
 `;
@@ -26,28 +28,6 @@ const NewsList = styled.ul`
     gap: 60px 30px;
 `;
 
-// const LoadNews = styled.button`
-//     display: block;
-//     margin: 0 auto;
-//     margin-top: 50px;
-//     width: 200px;
-//     height: 50px;
-     
-//     cursor: pointer;
-//     font-family: 'Playfair Display', serif;
-//     font-size: 20px;
-//     font-weight: 700;
-//     border: none;
-//     color: #fff;
-//     background-color: #000;
-//     border-radius: 4px;
-//     &:hover {
-//         color: #000;
-//         background-color: #fff;
-//         border: 1px solid #000;
-//         transition: all 0.5s ease;
-//     }
-// `;
 
 const NewsItem = styled.li`    
     
@@ -66,7 +46,7 @@ const NewsItem = styled.li`
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        min-height: 435px;
+        min-height: 450px;
         text-decoration: none;
     }
 `;
@@ -85,8 +65,8 @@ const NewsImage = styled.div`
 `;
 
 const ItemTitle = styled.h3`
-    font-size: 24px;
-    line-height: 32px;
+    font-size: 22px;
+    line-height: 29px;
     font-weight: 700;
     margin-bottom: auto;
 `;
@@ -130,25 +110,28 @@ const MainNewsPage = () => {
 
     function renderItems(arr) {
         const items = arr.map((item) => {
-           
-            const timeAgo = findTime(item.publishedTime);     
+            
+            const {id, image, title, publishedTime, source} = item;
+
+            const publishingTime = transformPublishingTime(publishedTime);
             
             return (
-                <NewsItem key={item.id}>                    
-                    <Link to={`/main/${item.id}`} onClick={() => handleNews(item.id)}>
+                <NewsItem key={id}>                    
+                    <Link to={`/main/${id}`} onClick={() => handleNews(id)}>
                         <NewsImage>
-                            <img src={item.image} alt="News Image" />
+                            <img src={image} alt="News Image" />
                         </NewsImage>  
-                        <ItemTitle>{item.title}</ItemTitle>
+                        <ItemTitle>{title}</ItemTitle>
                         <SomeInfo>
                             <span style={{marginRight: 16}}>
-                            {timeAgo > 1
+                            {/* {timeAgo > 1
                             ? `${timeAgo} hours ago` 
                             : timeAgo == 1 ? `${timeAgo} hour ago`
                             : 'Yesterday'
-                            }
+                            } */}
+                            {publishingTime}
                             </span>
-                            <span>{item.source}</span>
+                            <span>{source}</span>
                         </SomeInfo>
                     </Link>
                 </NewsItem>    
@@ -188,7 +171,6 @@ const MainNewsPage = () => {
             {errorMessage}
             {spinner}
             {items}
-            {/* <LoadNews>More news</LoadNews> */}
         </Container>
     );
 };

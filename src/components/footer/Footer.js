@@ -19,7 +19,7 @@ const Footer = () => {
 
     return (
         <Container>
-           <Copyryght>Copyright 2022 Some News</Copyryght>
+           <Copyryght>Copyright 2023 Some News</Copyryght>
         </Container>
     );
 };

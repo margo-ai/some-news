@@ -1,4 +1,5 @@
 import {v4 as uuidv4} from 'uuid';
+import { DateTime } from 'luxon';
 
 export const _transformNews = (news) => {
     return {
@@ -28,6 +29,16 @@ export const findTime = (publishedTime) => {
 }
 
 export const cutContent = (text) => {
+
+    if (text === null) {
+        return 'Content wasn\'t found'
+    }
+
     let to = text.indexOf('[');
     return text.slice(0, to);
+}
+
+export const transformPublishingTime = (time) => {
+    let publishingTime = DateTime.fromISO(time).setLocale('ru').setLocale('ru').toFormat('dd.LL.yyyy HH:mm');
+    return publishingTime;
 }
