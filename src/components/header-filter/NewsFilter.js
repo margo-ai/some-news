@@ -72,7 +72,7 @@ const NewsFilter = () => {
             <FilterItem>
                 <NavLink 
                     style={({isActive}) => ({color: isActive ? '#fff' : 'inherit', backgroundColor: isActive ? '#000' : 'inherit'})}
-                    to="/science"
+                    to="/business"
                     onClick={() => handleCategory('business')}>Business</NavLink>
             </FilterItem>
         </FilterList>

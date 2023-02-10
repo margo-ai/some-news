@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo} from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { useSelector , useDispatch} from 'react-redux';
 import { findTime, cutContent } from '../../helpers/transformData';
@@ -37,7 +37,7 @@ const InfoBlock = styled.div`
     display: flex;
     justify-content: space-between;
     font-size: 18px;
-    margin-top: 30px;
+    margin-top: 50px;
     color: #808080;
 `;
 
@@ -58,6 +58,24 @@ const NewsUrl = styled.a`
     }
 `;
 
+const BackButton = styled.button`
+    width: 15%;
+    margin-left: auto;
+    background-color: #fff;
+    color: #000;
+    cursor: pointer;
+    font-size: 18px;
+    border: 1px solid #000;
+    border-radius: 4px;
+    padding: 10px;
+    transition: all 0.5s ease-out;
+    &:hover {
+        color: #fff;
+        background-color: #000;
+    }
+    
+`;
+
 const SingleNewsPage = () => {
     
         // id: uuidv4(),
@@ -73,6 +91,7 @@ const SingleNewsPage = () => {
     const dispatch = useDispatch();
     // const newsData= useSelector(state => state.news.selectedNews);
     // console.log(newsData);
+    const navigate = useNavigate();
     
     function getOneNews() {
         const selectedId = localStorage.getItem('newsId');
@@ -97,8 +116,9 @@ const SingleNewsPage = () => {
         const publishingTime = transformPublishingTime(publishedTime);
 
         return (
-            <Container>       
-            <InfoBlock>                    
+            <Container> 
+                <BackButton onClick={() => navigate(-1)}>Back to all</BackButton>      
+                <InfoBlock>                    
                     <span>{publishingTime}</span>
                     <span>{source}</span>
                 </InfoBlock>         
@@ -108,7 +128,6 @@ const SingleNewsPage = () => {
                 </Image>
                 <Content>{newContent}</Content>
                 <NewsUrl href={url}>Read at the source</NewsUrl>
-                
             </Container>    
         )
     }

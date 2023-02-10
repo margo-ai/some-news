@@ -38,6 +38,7 @@ function App() {
 					<Route 
 						path=":category" 
 						element={<CategoryPage />}/>
+					<Route path="/:category/:newsId" element={<SingleNewsPage />}/>
 					<Route path="*" element={<MainNewsPage />}/>
 				</Routes>
 			</BrowserRouter>

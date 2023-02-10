@@ -109,7 +109,11 @@ const CategoryPage = () => {
     console.log(category);
     console.log(newsList);
 
-  
+    function handleNews(newsId) {
+        // dispatch(setNews(newsId));
+        localStorage.setItem("newsId", newsId);
+        localStorage.setItem("newsList", JSON.stringify(newsList))
+    }
 
     function renderItems(arr) {
         const items = arr.map((item) => {
@@ -120,7 +124,7 @@ const CategoryPage = () => {
 
             return (
                 <NewsItem key={id}>
-                    <Link to={`/${category}/${id}`}>
+                    <Link to={`/${category}/${id}`} onClick={() => handleNews(id)}>
                         <NewsImage>
                             <img src={image} alt="News Image" />
                         </NewsImage>                    
@@ -163,6 +167,7 @@ const CategoryPage = () => {
     </SpinnerWrapper>
     : null;
 
+    
     return (
         <Container>
             <Title>{category} News</Title>
