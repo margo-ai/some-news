@@ -1,35 +1,36 @@
 import HeaderSection from './components/header-section/HeaderSection';
 import Footer from './components/footer/Footer';
-import './App.css';
+
 
 import {BrowserRouter, BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import CategoryPage from './components/pages/CategoryPage';
 import MainNewsPage from './components/pages/MainNewsPage';
 import SingleNewsPage from './components/pages/SingleNewsPage';
 
+import styled from 'styled-components';
+
+const AppWrapper = styled.div`
+	font-size: 24px;
+	padding: 30px 125px;
+
+	@media (max-width: 1100px) {
+		padding: 30px 90px;
+	}
+	@media (max-width: 850px) {
+		padding: 20px 65px;
+	}
+	@media (max-width: 530px) {
+		padding: 20px 40px;
+	}
+	@media (max-width: 400px) {
+		padding: 10px 20px;
+	}
+`;
 
 function App() {
-	// useEffect(() => {
-	//  	fetch('https://newsapi.org/v2/top-headlines/?country=us&apiKey=0d128bf4661a476f88c003d0589b245a')
-	//  		.then((response) => response.json())
-	//  		.then((data) => data.articles.map(news => console.log(news)))
-	  
-	// }, [])
-
-	// const [category, setCategory] = useState(null);
-	
-	// useEffect(() => {
-	// 	// const categoryNews = localStorage.getItem('category');
-	// 	// if (categoryNews) {
-	// 	// 	dispatch(selectCategory(categoryNews));
-	// 	// }
-	// }, [])
-	
-	
-	// console.log(category);
 	
 	return (
-		<div className="App">
+		<AppWrapper>
 			<BrowserRouter>			
 				<HeaderSection/>			
 				<Routes>
@@ -43,7 +44,7 @@ function App() {
 				</Routes>
 			</BrowserRouter>
 			<Footer />
-		</div>
+		</AppWrapper>
 	);
 }
 

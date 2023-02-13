@@ -20,6 +20,21 @@ const Title = styled.div`
         text-decoration: none;
         color: #000;
     }
+    @media (max-width: 850px) {
+        font-size: 22px;
+    }
+    @media (max-width: 700px) {
+        font-size: 20px;
+    }
+    @media (max-width: 600px) {
+        font-size: 18px;
+    }
+    @media (max-width: 530px) {
+        font-size: 15px;
+    }
+    @media (max-width: 530px) {
+        font-size: 12px;
+    }
 `;
 
 const Span = styled.span`
@@ -28,6 +43,10 @@ const Span = styled.span`
     background-color: #000;
     border-radius: 4px;
     margin-right: 8px;
+    @media (max-width: 600px) {
+        padding: 5px;
+        margin-right: 4px;
+    }
 `;
 
 
@@ -41,7 +60,7 @@ const HeaderSection = ({setCategory}) => {
                         <Span>Some</Span>News
                     </Link>
                 </Title>
-                <MenuSection />
+                {/* <MenuSection /> */}
             </Header>
             <NewsFilter setCategory={setCategory}/>
         </>

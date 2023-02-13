@@ -20,13 +20,6 @@ export const filterNewsBySource = (articles) => {
     return filteredNews;
 }
 
-export const findTime = (publishedTime) => {
-    let now = new Date();
-    let nowHour = now.getHours();
-    let newsDate = new Date(publishedTime);
-    let newsHour = newsDate.getHours();
-    return nowHour - newsHour;      
-}
 
 export const cutContent = (text) => {
 

@@ -9,6 +9,15 @@ const FilterList = styled.ul`
     display: flex;
     margin-top: 20px;
     border: 1px solid #6C6C6C;    
+    @media (max-width: 600px) {
+        margin-top: 12px;
+    }
+    @media (max-width: 530px) {
+        margin-top: 10px;
+    }
+    @media (max-width: 400px) {
+        margin-top: 8px;
+    }
 `;
 
 const FilterItem = styled.li`
@@ -30,6 +39,31 @@ const FilterItem = styled.li`
             color: #fff;
             transition: all 0.5s ease;
         }
+        @media (max-width: 600px) {
+            padding: 8px 0;
+        }
+        @media (max-width: 530px) {
+            padding: 5px 0;
+        }
+        @media (max-width: 400px) {
+            padding: 5px 0;
+        }
+    }
+
+    @media (max-width: 1100px) {
+        font-size: 16px;
+    }
+    @media (max-width: 850px) {
+        font-size: 14px;
+    }
+    @media (max-width: 600px) {
+        font-size: 12px;
+    }
+    @media (max-width: 530px) {
+        font-size: 10px;
+    }
+    @media (max-width: 400px) {
+        font-size: 8px;
     }
 `;
 

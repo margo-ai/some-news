@@ -86,10 +86,6 @@ const SpinnerWrapper = styled.div`
 
 
 const CategoryPage = () => {
-    // const [newsList, setNewsList] = useState([]);
-    
-    // const {getNewsByCategory, loading, error} = useNewsService();
-    // console.log(category);
 
     const dispatch = useDispatch();
     const newsLoadingStatus = useSelector(state => state.news.newsLoadingStatus);
@@ -130,7 +126,7 @@ const CategoryPage = () => {
                         </NewsImage>                    
                         <ItemTitle>{title}</ItemTitle>
                         <SomeInfo>
-                            <span style={{marginRight: 16}}>
+                            <span>
                             {publishingTime}
                             </span>
                             <span>{source}</span>
@@ -167,10 +163,19 @@ const CategoryPage = () => {
     </SpinnerWrapper>
     : null;
 
+    function checkCategory() {
+        if (category) {
+            return `${category} News`;
+        } else {
+            const category = localStorage.getItem('category');
+            return `${category} News`;
+        }
+    }
+
     
     return (
         <Container>
-            <Title>{category} News</Title>
+            <Title>{checkCategory()}</Title>
             {errorMessage}
             {spinner}
             {items}

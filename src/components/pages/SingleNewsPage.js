@@ -2,7 +2,7 @@ import React, { useEffect, useMemo} from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { useSelector , useDispatch} from 'react-redux';
-import { findTime, cutContent } from '../../helpers/transformData';
+import { cutContent } from '../../helpers/transformData';
 
 import { transformPublishingTime } from '../../helpers/transformData';
 
