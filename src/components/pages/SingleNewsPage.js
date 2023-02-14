@@ -23,6 +23,9 @@ const Container = styled.div`
     @media (max-width: 600px) {
         margin-top: 15px;
     }
+    @media (max-width: 400px) {
+        margin-top: 10px;
+    }
 `;
 
 const Title = styled.h2`
@@ -41,6 +44,14 @@ const Title = styled.h2`
     @media (max-width: 600px) {
         margin-top: 10px;
         font-size: 20px;
+    }
+    @media (max-width: 530px) {
+        margin-top: 10px;
+        font-size: 16px;
+    }
+    @media (max-width: 400px) {
+        margin-top: 8px;
+        font-size: 13px;
     }
 `;
 
@@ -65,6 +76,14 @@ const Image = styled.div`
         margin-top: 15px;
         width: 400px;
     }
+    @media (max-width: 530px) {
+        margin-top: 12px;
+        width: 330px;
+    }
+    @media (max-width: 400px) {
+        margin-top: 8px;
+        width: 280px;
+    }
 `;
 
 const Content = styled.p`
@@ -80,6 +99,14 @@ const Content = styled.p`
     }
     @media (max-width: 600px) {
         font-size: 14px;
+    }
+    @media (max-width: 530px) {
+        margin-top: 10px;
+        font-size: 12px;
+    }
+    @media (max-width: 400px) {
+        margin-top: 8px;
+        font-size: 9px;
     }
 `;
 
@@ -103,6 +130,14 @@ const InfoBlock = styled.div`
     @media (max-width: 600px) {
         margin-top: 15px;
         font-size: 12px;
+    }
+    @media (max-width: 530px) {
+        margin-top: 10px;
+        font-size: 10px;
+    }
+    @media (max-width: 400px) {
+        margin-top: 10px;
+        font-size: 8px;
     }
 `;
 
@@ -129,18 +164,28 @@ const NewsUrl = styled.a`
         padding: 7px;
     }
     @media (max-width: 850px) {
-        font-size: 14px;
         margin-top: 40px;
+        font-size: 14px;
     }
     @media (max-width: 700px) {
-        font-size: 12px;
         margin-top: 35px;
+        font-size: 12px;
         padding: 6px;
     }
     @media (max-width: 600px) {
-        font-size: 10px;
-        padding: 4px;
         margin-top: 25px;
+        font-size: 11px;
+        padding: 4px;
+    }
+    @media (max-width: 530px) {
+        margin-top: 15px;
+        font-size: 9px;
+        padding: 3px;
+    }
+    @media (max-width: 400px) {
+        margin-top: 10px;
+        font-size: 9px;
+        padding: 3px;
     }
 `;
 
@@ -176,7 +221,14 @@ const BackButton = styled.button`
         font-size: 12px;
         padding: 4px;
     }
-        
+    @media (max-width: 530px) {
+        font-size: 10px;
+        padding: 3px;
+    }
+    @media (max-width: 400px) {
+        font-size: 8px;
+        width: 16%;
+    }
     
 `;
 

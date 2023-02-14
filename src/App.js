@@ -11,16 +11,16 @@ import styled from 'styled-components';
 
 const AppWrapper = styled.div`
 	font-size: 24px;
-	padding: 30px 125px;
+	padding: 30px 115px;
 
 	@media (max-width: 1100px) {
-		padding: 30px 90px;
+		padding: 30px 70px;
 	}
 	@media (max-width: 850px) {
-		padding: 20px 65px;
+		padding: 20px 45px;
 	}
 	@media (max-width: 530px) {
-		padding: 20px 40px;
+		padding: 20px 30px;
 	}
 	@media (max-width: 400px) {
 		padding: 10px 20px;
