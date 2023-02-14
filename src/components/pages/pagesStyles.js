@@ -188,7 +188,6 @@ export const ItemTitle = styled.h3`
 `;
 
 export const SomeInfo = styled.div`
-    font-family: 'Roboto', sans-serif;
     font-size: 12px;
     line-height: 14px;
     font-weight: 400;

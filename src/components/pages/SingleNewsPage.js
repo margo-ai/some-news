@@ -1,10 +1,9 @@
-import React, { useEffect, useMemo} from 'react';
+import React from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { useSelector , useDispatch} from 'react-redux';
-import { cutContent } from '../../helpers/transformData';
-
-import { transformPublishingTime } from '../../helpers/transformData';
+import errorImg from '../../assets/img/imageNotFound.jpg';
+import { cutContent, transformPublishingTime } from '../../helpers/transformData';
 
 const Container = styled.div`
     display: flex;
@@ -82,7 +81,7 @@ const Image = styled.div`
     }
     @media (max-width: 400px) {
         margin-top: 8px;
-        width: 280px;
+        width: 240px;
     }
 `;
 
@@ -110,12 +109,13 @@ const Content = styled.p`
     }
 `;
 
-const InfoBlock = styled.div`
+const InfoBlock = styled.div`    
     display: flex;
     justify-content: space-between;
     font-size: 18px;
     margin-top: 50px;
     color: #808080;
+
     @media (max-width: 1100px) {
         margin-top: 44px;
     }
@@ -233,20 +233,7 @@ const BackButton = styled.button`
 `;
 
 const SingleNewsPage = () => {
-    
-        // id: uuidv4(),
-    //     title: news.title,
-    //     image: news.urlToImage,
-    //     content: news.content,
-    //     source: news.source.name,
-    //     publishedTime: news.publishedAt,
-    //     url: news.url
-    
-    const {newsId} = useParams();
-    const newsList = useSelector(state => state.news.news);
-    const dispatch = useDispatch();
-    // const newsData= useSelector(state => state.news.selectedNews);
-    // console.log(newsData);
+
     const navigate = useNavigate();
     
     function getOneNews() {
@@ -255,21 +242,18 @@ const SingleNewsPage = () => {
         // selectedId ? dispatch(setNews(selectedId)) : dispatch(setNews(newsId))
         return allNews.find((item => item.id === selectedId));
     }
-
-    // useEffect(() => {
-    //     const news = getOneNews();
-    //     dispatch(setNews(news));
-    //     console.log(newsData);
-	// }, [])
     
     const newsData = getOneNews();
-    console.log(newsData);
 
     function renderNews(news) {
        const {content, image, source, title, url, publishedTime} = news;
 
         const newContent = cutContent(content);
         const publishingTime = transformPublishingTime(publishedTime);
+
+        function checkImageUrl(imageUrl) {
+            return imageUrl ? imageUrl : errorImg;
+        }
 
         return (
             <Container> 
@@ -280,7 +264,7 @@ const SingleNewsPage = () => {
                 </InfoBlock>         
                 <Title>{title}</Title>
                 <Image>
-                    <img src={image} />
+                    <img src={checkImageUrl(image)} />
                 </Image>
                 <Content>{newContent}</Content>
                 <NewsUrl href={url}>Read at the source</NewsUrl>

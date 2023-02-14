@@ -1,14 +1,12 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import ErrorMessage from '../errorMessage/ErrorMessage';
-import errorImg from '../../assets/img/notfound.gif';
 import { Oval } from 'react-loader-spinner';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchNews } from './newsSlice';
 
-import { transformPublishingTime } from '../../helpers/transformData';
+import { transformPublishingTime, checkImageUrl } from '../../helpers/transformData';
 import { Container, Title, NewsList, NewsItem, NewsImage, ItemTitle, SomeInfo, SpinnerWrapper } from './pagesStyles';
-
 
 
 const MainNewsPage = () => {
@@ -18,16 +16,12 @@ const MainNewsPage = () => {
     const newsList = useSelector(state => state.news.news);
 
 
-    console.log(newsLoadingStatus);
-    console.log(newsList);
-
     useEffect(() => {
         localStorage.clear();
         dispatch(fetchNews());
 	}, [])
 
     function handleNews(newsId) {
-        // dispatch(setNews(newsId));
         localStorage.setItem("newsId", newsId);
         localStorage.setItem("newsList", JSON.stringify(newsList))
     }
@@ -38,12 +32,14 @@ const MainNewsPage = () => {
             const {id, image, title, publishedTime, source} = item;
 
             const publishingTime = transformPublishingTime(publishedTime);
+
+            
             
             return (
                 <NewsItem key={id}>                    
                     <Link to={`/main/${id}`} onClick={() => handleNews(id)}>
                         <NewsImage>
-                            <img src={image} alt="News Image" />
+                            <img src={checkImageUrl(image)} alt="News Image" />
                         </NewsImage>  
                         <ItemTitle>{title}</ItemTitle>
                         <SomeInfo>

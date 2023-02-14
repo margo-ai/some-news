@@ -1,5 +1,6 @@
 import {v4 as uuidv4} from 'uuid';
 import { DateTime } from 'luxon';
+import errorImg from '../assets/img/404.gif';
 
 export const _transformNews = (news) => {
     return {
@@ -22,7 +23,7 @@ export const filterNewsBySource = (articles) => {
 
 
 export const cutContent = (text) => {
-
+    
     if (text === null) {
         return 'Content wasn\'t found'
     }
@@ -34,4 +35,8 @@ export const cutContent = (text) => {
 export const transformPublishingTime = (time) => {
     let publishingTime = DateTime.fromISO(time).setLocale('ru').setLocale('ru').toFormat('dd.LL.yyyy HH:mm');
     return publishingTime;
+}
+
+export const checkImageUrl = (imageUrl) => {
+    return imageUrl ? imageUrl : errorImg;
 }

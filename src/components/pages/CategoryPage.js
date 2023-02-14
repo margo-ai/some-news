@@ -1,10 +1,10 @@
 import React, { useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import styled from 'styled-components';
+
 import ErrorMessage from '../errorMessage/ErrorMessage';
 import { Oval } from 'react-loader-spinner';
-import { findTime, transformPublishingTime } from '../../helpers/transformData';
+import { transformPublishingTime, checkImageUrl } from '../../helpers/transformData';
 
 import { fetchNewsByCategory } from './newsSlice';
 import { Container, Title, NewsList, NewsItem, NewsImage, ItemTitle, SomeInfo, SpinnerWrapper } from './pagesStyles';
@@ -16,18 +16,10 @@ const CategoryPage = () => {
     const newsList = useSelector(state => state.news.news);
     const category = useSelector(state => state.news.category);
 
-    console.log(newsLoadingStatus);
-    console.log(newsList);
-    console.log(category);
-
     useEffect(() => {
         const categoryNews = localStorage.getItem('category');
 		categoryNews ? dispatch(fetchNewsByCategory(categoryNews)) : dispatch(fetchNewsByCategory(category));	
 	}, [category])
-
-
-    console.log(category);
-    console.log(newsList);
 
     function handleNews(newsId) {
         // dispatch(setNews(newsId));
@@ -40,13 +32,13 @@ const CategoryPage = () => {
             
             const {id, image, title, publishedTime, source} = item;
 
-            const publishingTime = transformPublishingTime(publishedTime);       
-
+            const publishingTime = transformPublishingTime(publishedTime);    
+            
             return (
                 <NewsItem key={id}>
                     <Link to={`/${category}/${id}`} onClick={() => handleNews(id)}>
                         <NewsImage>
-                            <img src={image} alt="News Image" />
+                            <img src={checkImageUrl(image)} alt="News Image" />
                         </NewsImage>                    
                         <ItemTitle>{title}</ItemTitle>
                         <SomeInfo>

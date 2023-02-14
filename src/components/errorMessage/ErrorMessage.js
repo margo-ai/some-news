@@ -1,11 +1,21 @@
 import React from 'react';
-import img from '../../assets/img/notfound.gif';
+import img from '../../assets/img/pageNotFound.jpg';
+import styled from 'styled-components';
+
+const Container = styled.div`
+    margin: 0 auto;
+    margin-top: 15px;
+    width: 50%;
+    & img {
+        width: 100%;
+    }
+`;
 
 const ErrorMessage = () => {
     return (
-        <div>
-             <img style={{ display: 'block', width: "100px", height: "100px", objectFit: 'contain', margin: "0 auto"}} src={img} alt="Error"/>    
-        </div>
+        <Container>
+            <img src={img} alt="Error"/>   
+        </Container>
     );
 };
 
