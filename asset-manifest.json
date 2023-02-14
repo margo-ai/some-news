@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.js": "/some-news/static/js/main.3c434260.js",
+    "static/media/404.gif": "/some-news/static/media/404.20cf0b03778ffc6f616b.gif",
+    "static/media/pageNotFound.jpg": "/some-news/static/media/pageNotFound.b2d5794035a3dcf526a8.jpg",
+    "static/media/imageNotFound.jpg": "/some-news/static/media/imageNotFound.a1b38b3e00b62b4a8a1f.jpg",
+    "index.html": "/some-news/index.html",
+    "static/media/search.svg": "/some-news/static/media/search.d5ae4eaa0c47b0fe98a3f02c7936dc01.svg",
+    "main.3c434260.js.map": "/some-news/static/js/main.3c434260.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.3c434260.js"
+  ]
+}
